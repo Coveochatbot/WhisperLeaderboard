@@ -14,7 +14,7 @@ namespace WhisperLeaderboard.Controllers
         [HttpGet]
         public IActionResult GetLeaderboard()
         {
-            return Ok("Leaderboard");
+            return View(new Models.Leaderboard());
         }
 
         [HttpPost("NewEntry")]

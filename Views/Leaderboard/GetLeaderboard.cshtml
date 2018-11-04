@@ -1,0 +1,26 @@
+﻿@model WhisperLeaderboard.Models.Leaderboard
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetLeaderboard</title>
+</head>
+<body>
+
+<div>
+    <h4>Leaderboard</h4>
+    <hr />
+</div>
+<div>
+    First Name : @Model.Entries[0].Name1<br>
+    Last Name : @Model.Entries[0].Name2<br>
+    Score : @Model.Entries[0].Score<br>
+</div>
+</body>
+</html>
