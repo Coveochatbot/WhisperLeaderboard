@@ -10,17 +10,52 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>GetLeaderboard</title>
+    <style>
+        body {
+            background-color: #2D4343;
+        }
+        h1 {
+            color: #FFFFFF;
+        }
+        .content {
+            background-color: #FFFFFF;
+            height: 300px;
+            width: 300px;
+            border-radius: 7px;
+
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -150px;
+            margin-top: -150px;
+        }
+        table {
+            width: inherit;
+            height: inherit;
+        }
+        td {
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-
-<div>
-    <h4>Leaderboard</h4>
-    <hr />
-</div>
-<div>
-    First Name : @Model.Entries[0].Name1<br>
-    Last Name : @Model.Entries[0].Name2<br>
-    Score : @Model.Entries[0].Score<br>
-</div>
+    <div>
+        <h1>Classement</h1>
+    </div>
+    <div class="content">
+        <table border=1 frame=void rules=rows>
+            @foreach (var entry in Model.Entries)
+            {
+                <tr>
+                    <td>@entry.Name1</td>
+                    <td>@entry.Name2</td>
+                    <td>@entry.Score</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        <img src="~/images/WHISPP.png" />
+    </div>
 </body>
 </html>
