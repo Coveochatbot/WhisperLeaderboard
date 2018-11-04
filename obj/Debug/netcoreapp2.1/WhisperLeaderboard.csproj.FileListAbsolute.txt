@@ -30,3 +30,4 @@ C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\net
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.dll
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.pdb
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.csproj.CopyComplete
+C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.csprojAssemblyReference.cache
