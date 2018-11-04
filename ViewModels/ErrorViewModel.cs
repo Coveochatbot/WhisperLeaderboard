@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WhisperLeaderboard.Models
+namespace WhisperLeaderboard.ViewModels
 {
     public class ErrorViewModel
     {
