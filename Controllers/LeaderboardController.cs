@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WhisperLeaderboard.Models;
 using WhisperLeaderboard.ViewModels;
 
 namespace WhisperLeaderboard.Controllers
@@ -11,10 +12,12 @@ namespace WhisperLeaderboard.Controllers
     [Route("/[Controller]")]
     public class LeaderboardController : Controller
     {
+        private Leaderboard _leaderboard = new Leaderboard();
+
         [HttpGet]
         public IActionResult GetLeaderboard()
         {
-            return View(new Models.Leaderboard());
+            return View(_leaderboard);
         }
 
         [HttpPost("NewEntry")]
