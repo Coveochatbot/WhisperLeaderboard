@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\lib\signalr\" />
   </ItemGroup>
 
 </Project>
