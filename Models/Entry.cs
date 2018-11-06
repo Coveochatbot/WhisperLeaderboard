@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace WhisperLeaderboard.Models
 {
     public class Entry : IEquatable<Entry>
     {
+        [JsonProperty("name1")]
         public string Name1 { get; }
+        [JsonProperty("name2")]
         public string Name2 { get; }
+        [JsonProperty("score")]
         public int Score { get; }
 
         public Entry(string name1, string name2, int score)
