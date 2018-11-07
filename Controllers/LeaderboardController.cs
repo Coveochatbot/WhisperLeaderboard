@@ -42,5 +42,12 @@ namespace WhisperLeaderboard.Controllers
             _leaderboard = new Leaderboard(leaderboardDto.Entries, leaderboardDto.Size);
             return Ok("Initialized leaderboard");
         }
+
+        [HttpPost("Remove")]
+        public IActionResult Remove([FromBody] int position)
+        {
+            _leaderboard.RemoveEntry(position);
+            return Ok("Entry was removed");
+        }
     }
 }
