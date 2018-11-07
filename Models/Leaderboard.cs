@@ -47,13 +47,22 @@ namespace WhisperLeaderboard.Models
         {
             if (IsEligible(score))
             {
-                _entries.Add(new Entry(name1, name2, score));
+                _entries.Add(new Entry(TruncateName(name1), TruncateName(name2), score));
                 if(_entries.Count > Size)
                 {
                     var lastEntry = _entries.OrderByDescending(x => x.Score).Last();
                     _entries.Remove(lastEntry);
                 }
             }
+        }
+
+        private string TruncateName(string name)
+        {
+            if (name.Length <= 14)
+                return name;
+
+            var result = name.Substring(0, 13);
+            return result += ".";
         }
 
         private void FillLeaderboard(List<Entry> entries, int size)
