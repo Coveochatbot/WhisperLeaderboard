@@ -8,12 +8,14 @@
 
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
     <meta name="viewport" content="width=device-width" />
     <title>GetLeaderboard</title>
     <style>
         body {
             background-color: #2D4343;
-            font-family: Mont ExtraLight DEMO;
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
         }
 
         h1 {
@@ -72,14 +74,14 @@
     </style>
 </head>
 <body>
-    <div class="content">
-        <div>
-            <h1>Classement</h1>
-        </div>
-        <div>
+    <div align="left">
+        <h1>Classement</h1>
+    </div>
+    <div class="content" align="left" style="top: 50%;">
+        <div align="center">
             <h2>Score</h2>
         </div>
-        <div class="tableContainer" id="mytable">
+        <div class="tableContainer" id="mytable" align="center">
             <table border=1 frame=void rules=rows>
                 @{int i = 1;}
                 @foreach (var entry in Model.Entries)
