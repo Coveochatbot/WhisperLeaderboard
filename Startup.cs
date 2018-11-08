@@ -24,6 +24,7 @@ namespace WhisperLeaderboard
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -41,6 +42,10 @@ namespace WhisperLeaderboard
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<LeaderboardHub>("/leaderboardHub");
+            });
             app.UseMvc();
         }
     }

@@ -14,16 +14,6 @@ C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\net
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.TagHelpers.input.cache
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.TagHelpers.output.cache
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.RazorCoreGenerate.cache
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\About.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\Contact.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\Error.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\Index.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\Privacy.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\Shared\_CookieConsentPartial.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\Shared\_Layout.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\Shared\_ValidationScriptsPartial.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\_ViewImports.g.cshtml.cs
-C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Pages\_ViewStart.g.cshtml.cs
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.RazorTargetAssemblyInfo.cache
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.RazorTargetAssemblyInfo.cs
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.Views.pdb
@@ -31,3 +21,4 @@ C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\net
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.pdb
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.csproj.CopyComplete
 C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\WhisperLeaderboard.csprojAssemblyReference.cache
+C:\Users\Lino\source\Whisper\WhisperLeaderboard\WhisperLeaderboard\obj\Debug\netcoreapp2.1\Razor\Views\Leaderboard\GetLeaderboard.g.cshtml.cs
