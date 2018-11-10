@@ -32,15 +32,14 @@ namespace WhisperLeaderboard.Models
 
         public void RemoveEntry(int position)
         {
-            if (_entries.Count >= position)
-                Entries.RemoveAt(position - 1);
-
-            throw new KeyNotFoundException($"Position {position} was not found in leaderboard");
+            var entry = GetEntry(position);
+            _entries.Remove(entry);
+            FillLeaderboard(_entries, Size);
         }
 
         public Entry GetEntry(int position)
         {
-            if (_entries.Count >= position)
+            if (_entries.Count >= position && position > 0)
                 return Entries[position-1];
 
             throw new KeyNotFoundException($"Position {position} was not found in leaderboard");

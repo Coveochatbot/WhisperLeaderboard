@@ -40,13 +40,15 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult InitializeNewLeadeboard([FromBody] LeaderboardDto leaderboardDto)
         {
             _leaderboard = new Leaderboard(leaderboardDto.Entries, leaderboardDto.Size);
+            _hubContext.Clients.All.SendAsync("Update");
             return Ok("Initialized leaderboard");
         }
 
         [HttpPost("Remove")]
-        public IActionResult Remove([FromBody] int position)
+        public IActionResult Remove([FromBody] PositionDto position)
         {
-            _leaderboard.RemoveEntry(position);
+            _leaderboard.RemoveEntry(position.Position);
+            _hubContext.Clients.All.SendAsync("Update");
             return Ok("Entry was removed");
         }
     }
