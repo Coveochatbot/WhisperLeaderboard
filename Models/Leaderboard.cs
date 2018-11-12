@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace WhisperLeaderboard.Models
 {
-    public class Leaderboard
+    public class Leaderboard : ILeaderboard
     {
+        private List<Entry> Entries => _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
         public int Size { get; }
-        public List<Entry> Entries => _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
 
         private List<Entry> _entries = new List<Entry>();
 
@@ -29,6 +29,11 @@ namespace WhisperLeaderboard.Models
 
             Size = size;
             _entries = entries;
+        }
+
+        public List<Entry> GetEntries()
+        {
+            return _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
         }
 
         public void RemoveEntry(int position)

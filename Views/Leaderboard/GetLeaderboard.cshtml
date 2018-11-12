@@ -84,7 +84,7 @@
         <div class="tableContainer" id="mytable" align="center">
             <table border=1 frame=void rules=rows>
                 @{int i = 1;}
-                @foreach (var entry in Model.Entries)
+                @foreach (var entry in Model.GetEntries())
                 {
                     <tr>
                         <td><span>@i. </span><span>@entry.Name1</span></td>

@@ -8,16 +8,18 @@ namespace WhisperLeaderboard.Controllers
     [Route("/[Controller]")]
     public class AdminController : Controller
     {
-        private static Leaderboard _leaderboard = new Leaderboard();
+        private static ILeaderboard _leaderboard;
 
-        public AdminController()
+        public AdminController(ILeaderboard leaderboard)
         {
+            _leaderboard = leaderboard;
         }
 
         [HttpGet("")]
         public IActionResult GetAdmin()
         {
-            this.ViewBag.Entries = _leaderboard.Entries;
+
+            this.ViewBag.Entries = _leaderboard.GetEntries();
             return View(new EditDto());
         }
 
@@ -34,6 +36,13 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult Delete([FromForm] EditDto entry)
         {
             _leaderboard.RemoveEntry(entry.Position);
+            return RedirectToAction("GetAdmin");
+        }
+
+        [HttpPost("Add")]
+        public IActionResult Add([FromForm] EditDto entry)
+        {
+            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
             return RedirectToAction("GetAdmin");
         }
     }

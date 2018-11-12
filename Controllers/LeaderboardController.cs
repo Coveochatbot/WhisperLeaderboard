@@ -8,12 +8,13 @@ namespace WhisperLeaderboard.Controllers
     [Route("/[Controller]")]
     public class LeaderboardController : Controller
     {
-        private static Leaderboard _leaderboard = new Leaderboard();
+        private static ILeaderboard _leaderboard;
         private static IHubContext<LeaderboardHub> _hubContext;
 
-        public LeaderboardController(IHubContext<LeaderboardHub> hubContext)
+        public LeaderboardController(IHubContext<LeaderboardHub> hubContext, ILeaderboard leaderboard)
         {
             _hubContext = hubContext;
+            _leaderboard = leaderboard;
         }
 
         [HttpGet]
