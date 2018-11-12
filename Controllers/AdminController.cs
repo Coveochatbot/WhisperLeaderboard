@@ -21,35 +21,20 @@ namespace WhisperLeaderboard.Controllers
             return View(new EditDto());
         }
 
-        [HttpPost("NewEntry")]
-        public IActionResult AddNewEntry([FromBody] Entry entry)
-        {
-            return Ok("Entry added");
-        }
-
         [HttpPost("Update")]
         public IActionResult Update([FromForm] EditDto entry)
         {
+            _leaderboard.RemoveEntry(entry.Position);
+            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
             return RedirectToAction("GetAdmin");
             //return View(_leaderboard);
         }
 
-        [HttpPost("Score")]
-        public IActionResult VerifyScore([FromBody] ScoreDto score)
+        [HttpPost("Delete")]
+        public IActionResult Delete([FromForm] EditDto entry)
         {
-            return Ok(_leaderboard.IsEligible(score.Score));
-        }
-
-        [HttpPost("NewLeaderboard")]
-        public IActionResult InitializeNewLeadeboard([FromBody] LeaderboardDto leaderboardDto)
-        {
-            return Ok("Initialized leaderboard");
-        }
-
-        [HttpPost("Remove")]
-        public IActionResult Remove([FromBody] PositionDto position)
-        {
-            return Ok("Entry was removed");
+            _leaderboard.RemoveEntry(entry.Position);
+            return RedirectToAction("GetAdmin");
         }
     }
 }
