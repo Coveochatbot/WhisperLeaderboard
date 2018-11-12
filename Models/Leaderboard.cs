@@ -8,7 +8,7 @@ namespace WhisperLeaderboard.Models
     public class Leaderboard
     {
         public int Size { get; }
-        public List<Entry> Entries => _entries.OrderByDescending(x => x.Score).ToList();
+        public List<Entry> Entries => _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
 
         private List<Entry> _entries = new List<Entry>();
 
@@ -31,9 +31,16 @@ namespace WhisperLeaderboard.Models
             _entries = entries;
         }
 
+        public void RemoveEntry(int position)
+        {
+            var entry = GetEntry(position);
+            var index = _entries.IndexOf(entry);
+            _entries[index] = new Entry("", "", 0);
+        }
+
         public Entry GetEntry(int position)
         {
-            if (_entries.Count >= position)
+            if (_entries.Count >= position && position > 0)
                 return Entries[position-1];
 
             throw new KeyNotFoundException($"Position {position} was not found in leaderboard");
@@ -41,20 +48,29 @@ namespace WhisperLeaderboard.Models
 
         public bool IsEligible(int score)
         {
-            return Entries.Last().Score <= score ? true : false;
+            return Entries.Last().Score < score;
         }
 
         public void InsertEntry(string name1, string name2, int score)
         {
             if (IsEligible(score))
             {
-                _entries.Add(new Entry(name1, name2, score));
-                if(_entries.Count > Size)
+                _entries.Add(new Entry(TruncateName(name1), TruncateName(name2), score));
+                if(_entries.Count > Size*2)
                 {
                     var lastEntry = _entries.OrderByDescending(x => x.Score).Last();
                     _entries.Remove(lastEntry);
                 }
             }
+        }
+
+        private string TruncateName(string name)
+        {
+            if (name.Length <= 14)
+                return name;
+
+            var result = name.Substring(0, 13);
+            return result += ".";
         }
 
         private void FillLeaderboard(List<Entry> entries, int size)
