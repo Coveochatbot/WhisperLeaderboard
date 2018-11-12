@@ -1,0 +1,53 @@
+﻿@model WhisperLeaderboard.Models.Dto.EditDto
+@using WhisperLeaderboard.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin leaderboard</title>
+</head>
+<body>
+
+<div>
+    <h4>Leaderboard</h4>
+    <hr />
+</div>
+<table>
+    <tr>
+        <td> Position </td>
+        <td> Demandeur </td>
+        <td> Agent </td>
+        <td> Pointage </td>
+    </tr>
+    @{
+        List<Entry> entries = ViewBag.Entries;
+        @for (int i = 0; i < entries.Count; i++)
+        {
+            <tr>
+                @using (Html.BeginForm("update", "admin", FormMethod.Post))
+                {
+                    <td> @i </td>
+                    @Html.HiddenFor(model => model.Position)
+                    <td> @Html.TextBoxFor(m => m.Entry.Name1, new { Value = entries[i].Name1 }) </td>
+                    <td> @Html.TextBoxFor(m => m.Entry.Name2, new { Value = entries[i].Name2 }) </td>
+                    <td> @Html.TextBoxFor(m => m.Entry.Score, new { Value = entries[i].Score }) </td>
+                    <td> <input type="submit" value="Update" /></td>
+
+                }
+
+                @using (Html.BeginForm("delete", "admin"))
+                {
+                    <td> <button> Delete </button> </td>
+                }
+            </tr>
+        }
+        }
+</table>
+</body>
+</html>
