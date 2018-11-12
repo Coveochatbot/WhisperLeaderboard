@@ -20,13 +20,10 @@ namespace WhisperLeaderboard.Models
 
         public Leaderboard(List<Entry> entries, int size)
         {
-            if (size < entries.Count)
-                throw new ArgumentException("Leaderboard size should be higher or equal than entries count");
             if (size < 1)
-            {
-                size = 1;
-                entries = new List<Entry>();
-            }
+                throw new ArgumentException("Leaderboard size should be higher than 0");
+            if (size < entries.Count)
+                entries = entries.OrderByDescending(x => x.Score).Take(size).ToList();
             if (entries.Count < size)
                 FillLeaderboard(entries, size);
 
