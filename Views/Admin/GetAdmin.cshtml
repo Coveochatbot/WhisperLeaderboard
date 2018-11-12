@@ -34,9 +34,9 @@
                 {
                     <td> @i </td>
                     @Html.HiddenFor(model => model.Position)
-                    <td> @Html.TextBoxFor(m => m.Entry.Name1, new { Value = entries[i].Name1 }) </td>
-                    <td> @Html.TextBoxFor(m => m.Entry.Name2, new { Value = entries[i].Name2 }) </td>
-                    <td> @Html.TextBoxFor(m => m.Entry.Score, new { Value = entries[i].Score }) </td>
+                    <td> @Html.TextBox("Name1", entries[i].Name1) </td>
+                    <td> @Html.TextBox("Name2", entries[i].Name2) </td>
+                    <td> @Html.TextBox("Score", entries[i].Score) </td>
                     <td> <input type="submit" value="Update" /></td>
 
                 }

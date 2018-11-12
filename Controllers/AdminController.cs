@@ -10,13 +10,8 @@ namespace WhisperLeaderboard.Controllers
     {
         private static Leaderboard _leaderboard = new Leaderboard();
 
-        public AdminController(IHubContext<LeaderboardHub> hubContext)
+        public AdminController()
         {
-            _leaderboard.Entries.Clear();
-            _leaderboard.InsertEntry("bob", "robert", 9);
-            _leaderboard.InsertEntry("bobette", "roberto", 9999);
-            _leaderboard.InsertEntry("george", "pepito", 45);
-
         }
 
         [HttpGet("")]
@@ -33,9 +28,9 @@ namespace WhisperLeaderboard.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult VerifyScore([FromBody] Entry entry)
+        public IActionResult Update([FromForm] EditDto entry)
         {
-            return RedirectToAction("Index", "MyController");
+            return RedirectToAction("GetAdmin");
             //return View(_leaderboard);
         }
 

@@ -1,8 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WhisperLeaderboard.Models.Dto
 {
@@ -11,7 +7,11 @@ namespace WhisperLeaderboard.Models.Dto
         [JsonProperty("position")]
         public int Position { get; set; }
 
-        [JsonProperty("entry")]
-        public Entry Entry { get; set; }
+        [JsonProperty("name1")]
+        public string Name1 { get; set; }
+        [JsonProperty("name2")]
+        public string Name2 { get; set; }
+        [JsonProperty("score")]
+        public int Score { get; set; }
     }
 }
