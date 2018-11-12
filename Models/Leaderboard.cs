@@ -34,8 +34,8 @@ namespace WhisperLeaderboard.Models
         public void RemoveEntry(int position)
         {
             var entry = GetEntry(position);
-            _entries.Remove(entry);
-            FillLeaderboard(_entries, Size);
+            var index = _entries.IndexOf(entry);
+            _entries[index] = new Entry("", "", 0);
         }
 
         public Entry GetEntry(int position)
@@ -48,7 +48,7 @@ namespace WhisperLeaderboard.Models
 
         public bool IsEligible(int score)
         {
-            return Entries.Last().Score <= score ? true : false;
+            return Entries.Last().Score < score;
         }
 
         public void InsertEntry(string name1, string name2, int score)

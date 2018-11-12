@@ -3,7 +3,7 @@ using System;
 
 namespace WhisperLeaderboard.Models
 {
-    public class Entry : IEquatable<Entry>
+    public class Entry
     {
         [JsonProperty("name1")]
         public string Name1 { get; }
