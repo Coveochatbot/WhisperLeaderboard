@@ -3,17 +3,20 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using WhisperLeaderboard.Models;
 using WhisperLeaderboard.Models.Dto;
+using Microsoft.AspNetCore.SignalR;
 
 namespace WhisperLeaderboard.Controllers
 {
     [Route("/[Controller]")]
     public class AdminController : Controller
     {
+        private static IHubContext<LeaderboardHub> _hubContext;
         private static ILeaderboard _leaderboard;
         private static IConfiguration _configuration;
 
-        public AdminController(ILeaderboard leaderboard, IConfiguration configuration)
+        public AdminController(IHubContext<LeaderboardHub> hubContext, ILeaderboard leaderboard, IConfiguration configuration)
         {
+            _hubContext = hubContext;
             _leaderboard = leaderboard;
             _configuration = configuration;
         }
@@ -61,6 +64,7 @@ namespace WhisperLeaderboard.Controllers
             {
                 _leaderboard.RemoveEntry(entry.Position);
                 _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+                _hubContext.Clients.All.SendAsync("Update");
             }
             return RedirectToAction("GetAdmin");
         }
@@ -69,6 +73,7 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult Delete([FromForm] EditDto entry)
         {
             _leaderboard.RemoveEntry(entry.Position);
+            _hubContext.Clients.All.SendAsync("Update");
             return RedirectToAction("GetAdmin");
         }
 
@@ -78,6 +83,7 @@ namespace WhisperLeaderboard.Controllers
             if (ModelState.IsValid)
             {
                 _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+                _hubContext.Clients.All.SendAsync("Update");
             }
 
             return RedirectToAction("GetAdmin");
@@ -87,6 +93,7 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult Resize([FromForm] EditDto entry)
         {
             _leaderboard.Resize(entry.Position);
+            _hubContext.Clients.All.SendAsync("Update");
             return RedirectToAction("GetAdmin");
         }
     }
