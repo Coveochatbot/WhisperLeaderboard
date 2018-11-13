@@ -18,7 +18,6 @@ namespace WhisperLeaderboard
             {
                 configurationBuilder
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
                     .AddJsonFile("secret.json");
             })
                 .UseStartup<Startup>();

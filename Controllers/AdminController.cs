@@ -22,7 +22,7 @@ namespace WhisperLeaderboard.Controllers
         {
             var auth = Request.Cookies["Auth"];
             if (filterContext.ActionDescriptor.RouteValues["action"] != "Login" && auth != _configuration["Auth"])
-                filterContext.Result = View("GetLogin", new PasswordDto());
+                filterContext.Result = View("GetLogin");
 
             base.OnActionExecuting(filterContext);
         }
@@ -31,7 +31,7 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult GetAdmin()
         {
             this.ViewBag.Entries = _leaderboard.GetEntries();
-            return View(new EditDto());
+            return View();
         }
 
         [HttpGet("Login")]
@@ -41,7 +41,7 @@ namespace WhisperLeaderboard.Controllers
             if (auth == _configuration["Auth"])
                 return RedirectToAction("GetAdmin");
 
-            return View("GetLogin", new PasswordDto());
+            return View();
         }
 
         [HttpPost("Login")]
