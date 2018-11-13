@@ -59,3 +59,6 @@ build/nuget/
 *.psess
 *.vsp
 *.vspx
+
+#others#
+secret.json
