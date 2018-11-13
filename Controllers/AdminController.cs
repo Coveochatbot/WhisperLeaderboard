@@ -10,15 +10,15 @@ namespace WhisperLeaderboard.Controllers
     [Route("/[Controller]")]
     public class AdminController : Controller
     {
+        private static IHubContext<LeaderboardHub> _hubContext;
         private static ILeaderboard _leaderboard;
         private static IConfiguration _configuration;
-        private static IHubContext<LeaderboardHub> _hubContext;
 
-        public AdminController(ILeaderboard leaderboard, IConfiguration configuration, IHubContext<LeaderboardHub> hubContext)
+        public AdminController(IHubContext<LeaderboardHub> hubContext, ILeaderboard leaderboard, IConfiguration configuration)
         {
+            _hubContext = hubContext;
             _leaderboard = leaderboard;
             _configuration = configuration;
-            _hubContext = hubContext;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
