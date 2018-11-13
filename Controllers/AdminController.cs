@@ -57,8 +57,11 @@ namespace WhisperLeaderboard.Controllers
         [HttpPost("Update")]
         public IActionResult Update([FromForm] EditDto entry)
         {
-            _leaderboard.RemoveEntry(entry.Position);
-            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+            if (ModelState.IsValid)
+            {
+                _leaderboard.RemoveEntry(entry.Position);
+                _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+            }
             return RedirectToAction("GetAdmin");
         }
 
@@ -72,7 +75,11 @@ namespace WhisperLeaderboard.Controllers
         [HttpPost("Add")]
         public IActionResult Add([FromForm] EditDto entry)
         {
-            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+            if (ModelState.IsValid)
+            {
+                _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+            }
+
             return RedirectToAction("GetAdmin");
         }
 
