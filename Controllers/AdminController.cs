@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using WhisperLeaderboard.Models;
-using WhisperLeaderboard.Models.Dto;
 using Microsoft.AspNetCore.SignalR;
 
 namespace WhisperLeaderboard.Controllers
@@ -24,8 +23,8 @@ namespace WhisperLeaderboard.Controllers
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var auth = Request.Cookies["Auth"];
-            if (filterContext.ActionDescriptor.RouteValues["action"] != "Login" && auth != _configuration["Auth"])
-                filterContext.Result = View("GetLogin");
+            if (auth != _configuration["Auth"])
+                filterContext.Result = RedirectToAction("","Login");
 
             base.OnActionExecuting(filterContext);
         }
@@ -35,66 +34,6 @@ namespace WhisperLeaderboard.Controllers
         {
             this.ViewBag.Entries = _leaderboard.GetEntries();
             return View();
-        }
-
-        [HttpGet("Login")]
-        public IActionResult GetLogin()
-        {
-            var auth = Request.Cookies["Auth"];
-            if (auth == _configuration["Auth"])
-                return RedirectToAction("GetAdmin");
-
-            return View();
-        }
-
-        [HttpPost("Login")]
-        public IActionResult Login([FromForm] PasswordDto pwd)
-        {
-            if (pwd.Password != _configuration["Pass"])
-                return Unauthorized();
-
-            this.ControllerContext.HttpContext.Response.Cookies.Append("Auth", _configuration["Auth"]);
-            return RedirectToAction("GetAdmin");
-        }
-
-        [HttpPost("Update")]
-        public IActionResult Update([FromForm] EditDto entry)
-        {
-            if (ModelState.IsValid)
-            {
-                _leaderboard.RemoveEntry(entry.Position);
-                _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
-                _hubContext.Clients.All.SendAsync("Update");
-            }
-            return RedirectToAction("GetAdmin");
-        }
-
-        [HttpPost("Delete")]
-        public IActionResult Delete([FromForm] EditDto entry)
-        {
-            _leaderboard.RemoveEntry(entry.Position);
-            _hubContext.Clients.All.SendAsync("Update");
-            return RedirectToAction("GetAdmin");
-        }
-
-        [HttpPost("Add")]
-        public IActionResult Add([FromForm] EditDto entry)
-        {
-            if (ModelState.IsValid)
-            {
-                _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
-                _hubContext.Clients.All.SendAsync("Update");
-            }
-
-            return RedirectToAction("GetAdmin");
-        }
-
-        [HttpPost("Resize")]
-        public IActionResult Resize([FromForm] EditDto entry)
-        {
-            _leaderboard.Resize(entry.Position);
-            _hubContext.Clients.All.SendAsync("Update");
-            return RedirectToAction("GetAdmin");
         }
     }
 }
