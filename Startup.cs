@@ -26,7 +26,7 @@ namespace WhisperLeaderboard
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR();
-
+            services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton<ILeaderboard, Leaderboard>();
         }
 

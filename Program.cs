@@ -19,6 +19,13 @@ namespace WhisperLeaderboard
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((webHostBuilderContext, configurationBuilder) =>
+            {
+                configurationBuilder
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .AddJsonFile("secret.json");
+            })
                 .UseStartup<Startup>();
     }
 }

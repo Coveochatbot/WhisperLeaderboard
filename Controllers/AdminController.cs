@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using WhisperLeaderboard.Models;
 using WhisperLeaderboard.Models.Dto;
 
@@ -9,17 +10,19 @@ namespace WhisperLeaderboard.Controllers
     public class AdminController : Controller
     {
         private static ILeaderboard _leaderboard;
+        private static IConfiguration _configuration;
 
-        public AdminController(ILeaderboard leaderboard)
+        public AdminController(ILeaderboard leaderboard, IConfiguration configuration)
         {
             _leaderboard = leaderboard;
+            _configuration = configuration;
         }
 
         [HttpGet("")]
         public IActionResult GetAdmin()
         {
             var auth = Request.Cookies["Auth"];
-            if (auth != "TEST2")
+            if (auth != _configuration["Auth"])
                 return RedirectToAction("Login");
 
             this.ViewBag.Entries = _leaderboard.GetEntries();
@@ -30,7 +33,7 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult GetLogin()
         {
             var auth = Request.Cookies["Auth"];
-            if (auth == "TEST2")
+            if (auth == _configuration["Auth"])
                 return RedirectToAction("GetAdmin");
             
             return View();
@@ -39,10 +42,10 @@ namespace WhisperLeaderboard.Controllers
         [HttpPost("Login")]
         public IActionResult Login([FromForm] PasswordDto pwd)
         {
-            if (pwd.Password != "TEST")
+            if (pwd.Password != _configuration["Pass"])
                 return Unauthorized();
 
-            this.ControllerContext.HttpContext.Response.Cookies.Append("Auth", "TEST2");
+            this.ControllerContext.HttpContext.Response.Cookies.Append("Auth", _configuration["Auth"]);
             return RedirectToAction("GetAdmin");
         }
 
@@ -52,7 +55,6 @@ namespace WhisperLeaderboard.Controllers
             _leaderboard.RemoveEntry(entry.Position);
             _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
             return RedirectToAction("GetAdmin");
-            //return View(_leaderboard);
         }
 
         [HttpPost("Delete")]
