@@ -54,12 +54,14 @@ OpenCover.Symbols/
 .nuget/NuGet.exe
 build/nuget/
 *.log
-*.csproj
 
 # Visual Studio performance tools
 *.psess
 *.vsp
 *.vspx
+<<<<<<< HEAD
 
 #others#
 secret.json
+=======
+>>>>>>> master
