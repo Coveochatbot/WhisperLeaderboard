@@ -50,10 +50,17 @@
             border-radius: 7px;
         }
 
-        .image {
+        .imageWHISP {
             position: absolute;
             bottom: 0;
-            right: 0;
+            right: 40px;
+            transform: scale(1.25);
+        }
+
+        .imageCoveo {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
         }
 
         table {
@@ -67,10 +74,10 @@
             width: 240px;
         }
 
-            td.score {
-                width: 120px;
-                padding-left: 0px;
-            }
+        td.score {
+            width: 120px;
+            padding-left: 0px;
+        }
     </style>
 </head>
 <body>
@@ -97,7 +104,10 @@
             </table>
         </div>
     </div>
-    <div class="image">
+    <div class="imageCoveo">
+        <img src="~/images/coveo.png" />
+    </div>
+    <div class="imageWHISP">
         <img src="~/images/WHISPP.png" />
     </div>
 </body>
