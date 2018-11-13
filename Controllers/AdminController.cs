@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using WhisperLeaderboard.Models;
 using WhisperLeaderboard.Models.Dto;
@@ -18,13 +18,18 @@ namespace WhisperLeaderboard.Controllers
             _configuration = configuration;
         }
 
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var auth = Request.Cookies["Auth"];
+            if (filterContext.ActionDescriptor.RouteValues["action"] != "Login" && auth != _configuration["Auth"])
+                filterContext.Result = View("GetLogin", new PasswordDto());
+
+            base.OnActionExecuting(filterContext);
+        }
+
         [HttpGet("")]
         public IActionResult GetAdmin()
         {
-            var auth = Request.Cookies["Auth"];
-            if (auth != _configuration["Auth"])
-                return RedirectToAction("Login");
-
             this.ViewBag.Entries = _leaderboard.GetEntries();
             return View(new EditDto());
         }
@@ -35,8 +40,8 @@ namespace WhisperLeaderboard.Controllers
             var auth = Request.Cookies["Auth"];
             if (auth == _configuration["Auth"])
                 return RedirectToAction("GetAdmin");
-            
-            return View();
+
+            return View("GetLogin", new PasswordDto());
         }
 
         [HttpPost("Login")]
