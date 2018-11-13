@@ -18,9 +18,32 @@ namespace WhisperLeaderboard.Controllers
         [HttpGet("")]
         public IActionResult GetAdmin()
         {
+            var auth = Request.Cookies["Auth"];
+            if (auth != "TEST2")
+                return RedirectToAction("Login");
 
             this.ViewBag.Entries = _leaderboard.GetEntries();
             return View(new EditDto());
+        }
+
+        [HttpGet("Login")]
+        public IActionResult GetLogin()
+        {
+            var auth = Request.Cookies["Auth"];
+            if (auth == "TEST2")
+                return RedirectToAction("GetAdmin");
+            
+            return View();
+        }
+
+        [HttpPost("Login")]
+        public IActionResult Login([FromForm] PasswordDto pwd)
+        {
+            if (pwd.Password != "TEST")
+                return Unauthorized();
+
+            this.ControllerContext.HttpContext.Response.Cookies.Append("Auth", "TEST2");
+            return RedirectToAction("GetAdmin");
         }
 
         [HttpPost("Update")]
@@ -43,6 +66,13 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult Add([FromForm] EditDto entry)
         {
             _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+            return RedirectToAction("GetAdmin");
+        }
+
+        [HttpPost("Resize")]
+        public IActionResult Resize([FromForm] EditDto entry)
+        {
+            _leaderboard.Resize(entry.Position);
             return RedirectToAction("GetAdmin");
         }
     }

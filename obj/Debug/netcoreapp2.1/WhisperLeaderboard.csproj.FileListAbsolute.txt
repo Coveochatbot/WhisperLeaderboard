@@ -47,3 +47,4 @@ D:\GitRepos\megageniale-admin\bin\Debug\netcoreapp2.1\WhisperLeaderboard.Views.d
 D:\GitRepos\megageniale-admin\bin\Debug\netcoreapp2.1\WhisperLeaderboard.Views.pdb
 D:\GitRepos\megageniale-admin\obj\Debug\netcoreapp2.1\WhisperLeaderboard.Views.pdb
 D:\GitRepos\megageniale-admin\obj\Debug\netcoreapp2.1\WhisperLeaderboard.csproj.CopyComplete
+D:\GitRepos\megageniale-admin\obj\Debug\netcoreapp2.1\Razor\Views\Admin\GetLogin.g.cshtml.cs

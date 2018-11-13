@@ -8,8 +8,7 @@ namespace WhisperLeaderboard.Models
     public class Leaderboard : ILeaderboard
     {
         private List<Entry> Entries => _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
-        public int Size { get; }
-
+        public int Size { get; private set; }
         private List<Entry> _entries = new List<Entry>();
 
         public Leaderboard()
@@ -20,15 +19,7 @@ namespace WhisperLeaderboard.Models
 
         public Leaderboard(List<Entry> entries, int size)
         {
-            if (size < 1)
-                throw new ArgumentException("Leaderboard size should be higher than 0");
-            if (size < entries.Count)
-                entries = entries.OrderByDescending(x => x.Score).Take(size).ToList();
-            if (entries.Count < size)
-                FillLeaderboard(entries, size);
-
-            Size = size;
-            _entries = entries;
+            Initialize(entries, size);
         }
 
         public List<Entry> GetEntries()
@@ -67,6 +58,24 @@ namespace WhisperLeaderboard.Models
                     _entries.Remove(lastEntry);
                 }
             }
+        }
+
+        public void Resize(int size)
+        {
+            Initialize(_entries, size);
+        }
+
+        private void Initialize(List<Entry> entries, int size)
+        {
+            if (size < 1)
+                throw new ArgumentException("Leaderboard size should be higher than 0");
+            if (size < entries.Count)
+                entries = entries.OrderByDescending(x => x.Score).Take(size).ToList();
+            if (entries.Count < size)
+                FillLeaderboard(entries, size);
+
+            Size = size;
+            _entries = entries;
         }
 
         private string TruncateName(string name)

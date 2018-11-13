@@ -12,6 +12,8 @@ namespace WhisperLeaderboard.Models
         List<Entry> GetEntries();
         
         bool IsEligible(int score);
+
+        void Resize(int size);
         
         void InsertEntry(string name1, string name2, int score);
     }
