@@ -59,9 +59,6 @@ build/nuget/
 *.psess
 *.vsp
 *.vspx
-<<<<<<< HEAD
 
 #others#
 secret.json
-=======
->>>>>>> master
