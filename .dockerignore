@@ -1,0 +1,6 @@
+bin\
+obj\
+.ebextensions
+.git
+.gitignore
+Dockerfile
