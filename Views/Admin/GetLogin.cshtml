@@ -1,0 +1,24 @@
+﻿@model WhisperLeaderboard.Models.Dto.PasswordDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin leaderboard</title>
+</head>
+<body>
+
+    <p>Hello there :) </p>
+    @using (Html.BeginForm("login", "admin", FormMethod.Post))
+    {
+        @Html.TextBox("Password", 0)
+        <input type="submit" value="Log me in !" />
+    }
+    <hr />
+</body>
+</html>
