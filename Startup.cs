@@ -1,8 +1,11 @@
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using WhisperLeaderboard.Models;
 
 namespace WhisperLeaderboard
@@ -37,7 +40,22 @@ namespace WhisperLeaderboard
             }
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles(new DefaultFilesOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "WhisperUI")),
+                RequestPath = "/whisperui"
+            });
+
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "WhisperUI")),
+                RequestPath = "/whisperui"
+            });
+
+
             app.UseCookiePolicy();
             app.UseSignalR(routes =>
             {
