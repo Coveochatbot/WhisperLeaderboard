@@ -11,6 +11,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Admin leaderboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script>
+        var socket = io('https://whisper-megagenial.us-east-1.elasticbeanstalk.com:8080');
+
+        function newGame() {
+            socket.emit('new');
+        }
+            
+    </script>
 </head>
 <body>
 
@@ -76,6 +85,8 @@
             }
         }
     </table>
+    <hr />
+    <input type="submit" onclick="newGame()" value="New Game" />
     <hr />
 </body>
 </html>
