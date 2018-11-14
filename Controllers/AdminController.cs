@@ -24,7 +24,7 @@ namespace WhisperLeaderboard.Controllers
         {
             var auth = Request.Cookies["Auth"];
             if (auth != _configuration["Auth"])
-                filterContext.Result = RedirectToAction("","Login");
+                filterContext.Result = RedirectToAction("GetLogin", "Login");
 
             base.OnActionExecuting(filterContext);
         }
