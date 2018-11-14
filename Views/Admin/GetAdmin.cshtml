@@ -15,7 +15,7 @@
 <body>
 
     <p>New Leaderboard size</p>
-    @using (Html.BeginForm("resize", "admin", FormMethod.Post))
+    @using (Html.BeginForm("resize", "leaderboard", FormMethod.Post))
     {
         @Html.TextBox("Position", 0)
         <input type="submit" value="Resize" />
@@ -23,7 +23,7 @@
     <hr />
 
     <p>New entry</p>
-    @using (Html.BeginForm("add", "admin", FormMethod.Post))
+    @using (Html.BeginForm("NewEntry", "leaderboard", FormMethod.Post))
     {
         <table>
             <tr>
@@ -55,24 +55,24 @@
             List<Entry> entries = ViewBag.Entries;
             @for (int i = 0; i < entries.Count; i++)
             {
-                <tr>
-                    @using (Html.BeginForm("update", "admin", FormMethod.Post))
-                    {
-                        <td> @(i + 1) </td>
-                        @Html.Hidden("Position", i + 1)
-                        <td> @Html.TextBox("Name1", entries[i].Name1) </td>
-                        <td> @Html.TextBox("Name2", entries[i].Name2) </td>
-                        <td> @Html.TextBox("Score", entries[i].Score) </td>
-                        <td> <input type="submit" value="Update" /></td>
+        <tr>
+            @using (Html.BeginForm("update", "leaderboard", FormMethod.Post))
+            {
+                <td> @(i + 1) </td>
+                @Html.Hidden("Position", i + 1, new { id = "updatePos"+i })
+                <td> @Html.TextBox("Name1", entries[i].Name1) </td>
+                <td> @Html.TextBox("Name2", entries[i].Name2) </td>
+                <td> @Html.TextBox("Score", entries[i].Score) </td>
+                <td> <input type="submit" value="Update" /></td>
 
-                    }
+            }
 
-                    @using (Html.BeginForm("delete", "admin"))
-                    {
-                        @Html.Hidden("Position", i + 1)
-                        <td> <input type="submit" value="Delete" /></td>
-                    }
-                </tr>
+            @using (Html.BeginForm("remove", "leaderboard", FormMethod.Post))
+            {
+                @Html.Hidden("Position", i + 1, new { id = "removePos" })
+                <td> <input type="submit" value="Remove" /></td>
+            }
+        </tr>
             }
         }
     </table>
