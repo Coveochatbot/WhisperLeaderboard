@@ -37,6 +37,12 @@ namespace WhisperLeaderboard.Controllers
             return this.Ok();
         }
 
+        [HttpGet("remaining")]
+        public IActionResult GetTimeBeforeExplosion()
+        {
+            return this.Ok(_gameContext.RemainingTime);
+        }
+
         [HttpPost("start")]
         public IActionResult StartGame([FromBody] StartParameters startParams)
         {

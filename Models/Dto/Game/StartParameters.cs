@@ -17,6 +17,8 @@ namespace WhisperLeaderboard.Models.Dto.Game
     {
         [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
         public GameMode Mode { get; set; }
+
         public DateTime StartTime { get; set; }
+        public TimeSpan StartBombTime { get; set; }
     }
 }

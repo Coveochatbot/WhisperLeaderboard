@@ -13,6 +13,8 @@ namespace WhisperLeaderboard.Models.Dto.Game
         DateTime? FirstStrikeTime { get; set; }
         DateTime? SecondStrikeTime { get; set; }
         GameMode Mode { get; set; }
+        TimeSpan StartBombTime { get; set; }
+        TimeSpan RemainingTime { get; }
 
         void NewGame(StartParameters startParams);
         void NamePlayer(NameParameters nameParams);

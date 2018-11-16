@@ -9,7 +9,7 @@ namespace WhisperLeaderboard.Models.Dto.Game
     {
         public GameContext()
         {
-            
+
         }
 
         public void NewGame(StartParameters startParams)
@@ -18,6 +18,7 @@ namespace WhisperLeaderboard.Models.Dto.Game
             FirstStrikeTime = null;
             SecondStrikeTime = null;
             Mode = startParams.Mode;
+            StartBombTime = startParams.StartBombTime;
         }
 
         public void NamePlayer(NameParameters nameParams)
@@ -37,7 +38,7 @@ namespace WhisperLeaderboard.Models.Dto.Game
 
         public void Strike(StrikeParameters strikeParams)
         {
-            switch(strikeParams.StrikeNumber)
+            switch (strikeParams.StrikeNumber)
             {
                 case 1:
                     FirstStrikeTime = strikeParams.When;
@@ -62,5 +63,26 @@ namespace WhisperLeaderboard.Models.Dto.Game
         public DateTime? FirstStrikeTime { get; set; }
         public DateTime? SecondStrikeTime { get; set; }
         public GameMode Mode { get; set; }
+        public TimeSpan StartBombTime { get; set; }
+
+        public TimeSpan RemainingTime
+        {
+            get
+            {
+                var now = DateTime.Now;
+                if (FirstStrikeTime == null)
+                {
+                    return StartBombTime - (now - GameStartTime);
+                }
+                else if (SecondStrikeTime == null)
+                {
+                    return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (now - FirstStrikeTime.Value);
+                }
+                else
+                {
+                    return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (SecondStrikeTime.Value - FirstStrikeTime.Value) - 1.5 * (now - SecondStrikeTime.Value);
+                }
+            }
+        }
     }
 }
