@@ -57,6 +57,22 @@ namespace WhisperLeaderboard.Models.Dto.Game
             DisarmerName = null;
         }
 
+        public TimeSpan GetBombRemainingTime(DateTime current)
+        {
+            if (FirstStrikeTime == null)
+            {
+                return StartBombTime - (current - GameStartTime);
+            }
+            else if (SecondStrikeTime == null)
+            {
+                return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (current - FirstStrikeTime.Value);
+            }
+            else
+            {
+                return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (SecondStrikeTime.Value - FirstStrikeTime.Value) - 1.5 * (current - SecondStrikeTime.Value);
+            }
+        }
+
         public string AgentName { get; set; }
         public string DisarmerName { get; set; }
         public DateTime GameStartTime { get; set; }
@@ -64,25 +80,5 @@ namespace WhisperLeaderboard.Models.Dto.Game
         public DateTime? SecondStrikeTime { get; set; }
         public GameMode Mode { get; set; }
         public TimeSpan StartBombTime { get; set; }
-
-        public TimeSpan RemainingTime
-        {
-            get
-            {
-                var now = DateTime.Now;
-                if (FirstStrikeTime == null)
-                {
-                    return StartBombTime - (now - GameStartTime);
-                }
-                else if (SecondStrikeTime == null)
-                {
-                    return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (now - FirstStrikeTime.Value);
-                }
-                else
-                {
-                    return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (SecondStrikeTime.Value - FirstStrikeTime.Value) - 1.5 * (now - SecondStrikeTime.Value);
-                }
-            }
-        }
     }
 }

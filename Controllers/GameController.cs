@@ -40,7 +40,7 @@ namespace WhisperLeaderboard.Controllers
         [HttpGet("remaining")]
         public IActionResult GetTimeBeforeExplosion()
         {
-            return this.Ok(_gameContext.RemainingTime);
+            return this.Ok(_gameContext.GetBombRemainingTime(DateTime.Now));
         }
 
         [HttpPost("start")]
@@ -71,7 +71,7 @@ namespace WhisperLeaderboard.Controllers
             // Send the score in endParams to the leaderboard if success is true. We must send the name of the disarmer, the name of the agent and the time it took to disarm the bomb
             // Then, we must send to the web socket server a reset signal for the UI to prompt for new names.
             _gameContext.EndGame();
-            return this.Ok(_gameContext.RemainingTime);
+            return this.Ok(_gameContext.GetBombRemainingTime(endParams.EndTime));
         }
     }
 }

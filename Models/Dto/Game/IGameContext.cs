@@ -14,11 +14,11 @@ namespace WhisperLeaderboard.Models.Dto.Game
         DateTime? SecondStrikeTime { get; set; }
         GameMode Mode { get; set; }
         TimeSpan StartBombTime { get; set; }
-        TimeSpan RemainingTime { get; }
 
         void NewGame(StartParameters startParams);
         void NamePlayer(NameParameters nameParams);
         void Strike(StrikeParameters strikeParams);
         void EndGame();
+        TimeSpan GetBombRemainingTime(DateTime current);
     }
 }
