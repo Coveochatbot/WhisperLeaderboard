@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using WhisperLeaderboard.Models;
+using WhisperLeaderboard.Models.Dto.Game;
 
 namespace WhisperLeaderboard
 {
@@ -25,6 +26,7 @@ namespace WhisperLeaderboard
             services.AddSignalR();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton<ILeaderboard, Leaderboard>();
+            services.AddSingleton<IGameContext>(new GameContext());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
