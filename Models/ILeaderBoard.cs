@@ -9,8 +9,10 @@ namespace WhisperLeaderboard.Models
         
         Entry GetEntry(int position);
 
-        List<Entry> GetEntries();
-        
+        List<Entry> GetTopEntries();
+
+        List<Entry> GetAllEntries();
+
         bool IsEligible(int score);
 
         void Resize(int size);
