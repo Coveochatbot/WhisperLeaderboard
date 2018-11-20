@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
+using WhisperLeaderboard.Models;
 using WhisperLeaderboard.Models.Dto.Game;
 
 namespace WhisperLeaderboard.Controllers
@@ -15,11 +16,13 @@ namespace WhisperLeaderboard.Controllers
     {
         private IGameContext _gameContext;
         private static IConfiguration _configuration;
+        private static ILeaderboard _leaderboard;
 
-        public GameController(IConfiguration configuration, IGameContext context)
+        public GameController(IConfiguration configuration, IGameContext context, ILeaderboard leaderboard)
         {
             _configuration = configuration;
             _gameContext = context;
+            _leaderboard = leaderboard;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -70,6 +73,12 @@ namespace WhisperLeaderboard.Controllers
             // TODO before calling end game:
             // Send the score in endParams to the leaderboard if success is true. We must send the name of the disarmer, the name of the agent and the time it took to disarm the bomb
             // Then, we must send to the web socket server a reset signal for the UI to prompt for new names.
+            if (endParams.Success)
+            {
+                var timeSpend = _gameContext.GetTimeSpend(endParams.EndTime);
+                _leaderboard.InsertEntry(_gameContext.AgentName, _gameContext.DisarmerName, Convert.ToInt32(_gameContext.GetTimeSpend(endParams.EndTime).TotalSeconds));
+            }
+
             _gameContext.EndGame();
             return this.Ok(_gameContext.GetBombRemainingTime(endParams.EndTime));
         }
