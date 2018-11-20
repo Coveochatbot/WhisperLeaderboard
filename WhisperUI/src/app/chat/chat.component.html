@@ -1,0 +1,26 @@
+<div id="chat-wrapper">
+  <div class="ui comments">
+      <div class="comment" *ngFor="let message of messages">
+        <div class="avatar">
+          <i class="user icon" [ngStyle]="message.from.avatar"></i>
+        </div>
+        <div class="content" [ngStyle]="getConversationColor(message.from)">
+          <a class="author">{{ message.from.name }}</a>
+          <div class="metadata">
+            <span class="date">{{message.date | date : 'EEEE, d MMMM y h:mm a'}} </span>
+          </div>
+          <div class="text">
+            {{ message.content }}
+          </div>
+        </div>
+      </div>
+      <div id="searchBar" class="ui bordereless bottom fixed menu">
+        <div class="ui reply form fullWidth">
+          <div class="ui fluid action input">
+              <input type="text" name="conversation" [(ngModel)]="messageContent" (keyup.enter)="sendMessage()" placeholder="Envoyer un message...">
+              <div (click)="sendMessage()" class="ui button teal">Envoyer</div>
+          </div>
+        </div>
+      </div>
+  </div> 
+</div>

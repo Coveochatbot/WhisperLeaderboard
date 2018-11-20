@@ -1,0 +1,23 @@
+<div class="transition" #mySuggestion id="suggestion">
+    <div id="questionsSection" class="ui massive message" *ngIf="suggestion.questions && suggestion.questions.length > 0">
+        <div class="header">
+            Vous pouvez demander
+        </div>
+        <ul class="list">
+            <li class="bulletQuestion" (click)="choiceQuestion(question)" *ngFor="let question of suggestion.questions">{{ question.text }}</li>
+        </ul>
+    </div>
+    <div id="suggestionsSection" class="ui items">
+        <h1>Ceci pourrait vous aider</h1>
+        <div class="ui big message" (click)="choiceSuggestion(document)" *ngFor="let document of suggestion.documents">
+            <div class="header">
+                    {{ document.title }}
+            </div>
+            <p>{{ document.excerpt }}</p>
+        </div>
+    </div>
+</div>
+<div  class="transition hidden" id="documentWrapper" #myDocument>
+    <i (click)="closeDocument()" class="window close icon teal" id="closeDocument" ></i>
+    <iframe  [src]='selectedDocument' ></iframe>
+</div>

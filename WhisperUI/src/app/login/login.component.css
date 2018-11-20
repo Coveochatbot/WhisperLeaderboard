@@ -1,0 +1,9 @@
+.rowLogin {
+    max-width: 550px;
+    margin:0 auto;
+}
+.column {
+    width: 100%;
+    margin: 0;
+    padding: 0 !important;
+}   
