@@ -7,7 +7,7 @@ namespace WhisperLeaderboard.Models
 {
     public class Leaderboard : ILeaderboard
     {
-        private List<Entry> Entries => _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
+        //private List<Entry> Entries => _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
         public int Size { get; private set; }
         private List<Entry> _entries = new List<Entry>();
 
@@ -37,19 +37,20 @@ namespace WhisperLeaderboard.Models
         public Entry GetEntry(int position)
         {
             if (_entries.Count >= position && position > 0)
-                return Entries[position-1];
+                return GetEntries()[position-1];
 
             throw new KeyNotFoundException($"Position {position} was not found in leaderboard");
         }
 
         public bool IsEligible(int score)
         {
-            return Entries.Last().Score < score;
+            return GetEntries().Last().Score < score;
         }
 
         public void InsertEntry(string name1, string name2, int score)
         {
-            if (IsEligible(score))
+            _entries.Add(new Entry(TruncateName(name1), TruncateName(name2), score));
+            /*if (IsEligible(score))
             {
                 _entries.Add(new Entry(TruncateName(name1), TruncateName(name2), score));
                 if(_entries.Count > Size*2)
@@ -57,7 +58,7 @@ namespace WhisperLeaderboard.Models
                     var lastEntry = _entries.OrderByDescending(x => x.Score).Last();
                     _entries.Remove(lastEntry);
                 }
-            }
+            }*/
         }
 
         public void Resize(int size)
