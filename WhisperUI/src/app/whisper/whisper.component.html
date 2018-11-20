@@ -1,0 +1,8 @@
+<div id="wrapper">
+    <div id="left-section">
+        <whisper-chat [messageContent]="chatInput" (messageSentEvent)="messageSent($event)"></whisper-chat>
+    </div>
+    <div id="right-section" *ngIf="userLogged.userType == 1">
+        <whisper-suggestion [suggestion]="suggestion" (suggestionClickEvent)="onSuggestionClicked($event)"></whisper-suggestion>
+    </div>
+</div>

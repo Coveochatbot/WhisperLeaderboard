@@ -1,0 +1,19 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "member-access": true,
+        "typedef": [true, "call-signature", "parameter", "member-variable-declaration"], 
+        "directive-selector": [
+            true,
+            "attribute",
+            "whisper",
+            "camelCase"
+        ],
+        "component-selector": [
+            true,
+            "element",
+            "whisper",
+            "kebab-case"
+        ]
+    }
+}

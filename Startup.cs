@@ -45,7 +45,7 @@ namespace WhisperLeaderboard
             app.UseDefaultFiles(new DefaultFilesOptions()
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "WhisperUI")),
+                    Path.Combine(Directory.GetCurrentDirectory(), "WhisperUI", "dist")),
                 RequestPath = "/whisperui"
             });
 
@@ -53,7 +53,7 @@ namespace WhisperLeaderboard
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "WhisperUI")),
+                    Path.Combine(Directory.GetCurrentDirectory(), "WhisperUI", "dist")),
                 RequestPath = "/whisperui"
             });
 
