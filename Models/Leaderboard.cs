@@ -22,12 +22,12 @@ namespace WhisperLeaderboard.Models
 
         public List<Entry> GetTopEntries()
         {
-            return _entries.OrderByDescending(x => x.Score).Take(Size).ToList();
+            return GetAllEntries().Take(Size).ToList();
         }
 
         public List<Entry> GetAllEntries()
         {
-            return _entries.OrderByDescending(x => x.Score).ToList();
+            return _entries.OrderBy(x => x.Score).ToList();
         }
 
         public void RemoveEntry(int position)
