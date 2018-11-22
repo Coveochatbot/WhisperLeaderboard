@@ -4,3 +4,5 @@ obj\
 .git
 .gitignore
 Dockerfile
+WhisperUI/dist
+WhisperUI/node_modules
