@@ -76,7 +76,7 @@ namespace WhisperLeaderboard.Controllers
             if (endParams.Success)
             {
                 var timeSpend = _gameContext.GetTimeSpend(endParams.EndTime);
-                _leaderboard.InsertEntry(_gameContext.AgentName, _gameContext.DisarmerName, Convert.ToInt32(_gameContext.GetTimeSpend(endParams.EndTime).TotalSeconds));
+                _leaderboard.InsertEntry(_gameContext.AgentName, _gameContext.DisarmerName, Convert.ToInt32(_gameContext.GetTimeSpend(endParams.EndTime).TotalSeconds), _gameContext.Mode);
             }
 
             _gameContext.EndGame();

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WhisperLeaderboard.Models.Dto.Game;
 
 namespace WhisperLeaderboard.Models
 {
@@ -20,14 +21,20 @@ namespace WhisperLeaderboard.Models
             Initialize(entries, size);
         }
 
-        public List<Entry> GetTopEntries()
+        public List<Entry> GetTopEntries(GameMode mode)
         {
-            return GetAllEntries().Take(Size).ToList();
+            return GetAllEntries().Where(x => x.Mode == mode).Take(Size).ToList();
         }
 
         public List<Entry> GetAllEntries()
         {
             return _entries.OrderBy(x => x.Score).ToList();
+        }
+
+
+        public List<Entry> GetEntries(GameMode mode)
+        {
+            return _entries.Where(x => x.Mode == mode).OrderBy(x => x.Score).ToList();
         }
 
         public void RemoveEntry(int position)
@@ -44,14 +51,14 @@ namespace WhisperLeaderboard.Models
             throw new KeyNotFoundException($"Position {position} was not found in leaderboard");
         }
 
-        public bool IsEligible(int score)
+        public bool IsEligible(int score, GameMode mode)
         {
-            return GetTopEntries().Last().Score < score;
+            return GetTopEntries(mode).Last().Score < score;
         }
 
-        public void InsertEntry(string name1, string name2, int score)
+        public void InsertEntry(string name1, string name2, int score, GameMode mode)
         {
-            _entries.Add(new Entry(TruncateName(name1), TruncateName(name2), score));
+            _entries.Add(new Entry(TruncateName(name1), TruncateName(name2), score, mode));
         }
 
         public void Resize(int size)

@@ -51,7 +51,7 @@ namespace WhisperLeaderboard.Controllers
                 return Unauthorized();
             }
 
-            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score, entry.Mode);
             _hubContext.Clients.All.SendAsync("Update");
             return Redirect(Request.Headers["Referer"]);
         }
@@ -64,7 +64,7 @@ namespace WhisperLeaderboard.Controllers
                 return BadRequest();
             }
 
-            return Ok(_leaderboard.IsEligible(score.Score));
+            return Ok(_leaderboard.IsEligible(score.Score, score.Mode));
         }
 
         [HttpPost("NewLeaderboard")]
@@ -111,7 +111,7 @@ namespace WhisperLeaderboard.Controllers
             }
 
             _leaderboard.RemoveEntry(entry.Position);
-            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score);
+            _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score, entry.Mode);
             _hubContext.Clients.All.SendAsync("Update");
 
             return Redirect(Request.Headers["Referer"]);

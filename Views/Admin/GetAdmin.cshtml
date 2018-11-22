@@ -39,6 +39,7 @@
                 data: JSON.stringify(params),
                 contentType: 'application/json'
             });
+            location.reload();
         }
     </script>
 </head>
@@ -65,6 +66,7 @@
                 <td> @Html.TextBox("Name1", "") </td>
                 <td> @Html.TextBox("Name2", "") </td>
                 <td> @Html.TextBox("Score", "") </td>
+                <td> @Html.DropDownListFor(x => x.Mode, Html.GetEnumSelectList<GameMode>()) </td>
                 <td> <input type="submit" value="Add" /></td>
 
             </tr>
@@ -72,44 +74,58 @@
     }
     <hr />
     <div>
-        <h4>Leaderboard</h4>
+        <h4>Leaderboards</h4>
     </div>
-    <table>
-        <tr>
-            <td> Position </td>
-            <td> Demandeur </td>
-            <td> Agent </td>
-            <td> Pointage </td>
-        </tr>
-        @{
-            List<Entry> entries = ViewBag.Entries;
-            @for (int i = 0; i < entries.Count; i++)
+    <div class="grid-container" style="display: grid; grid-gap: 50px 100px;">
+        @{foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
             {
-                <tr>
-                    @using (Html.BeginForm("update", "leaderboard", FormMethod.Post))
-                    {
-                        <td> @(i + 1) </td>
-                        @Html.Hidden("Position", i + 1, new { id = "updatePos" + i })
-                        <td> @Html.TextBox("Name1", entries[i].Name1) </td>
-                        <td> @Html.TextBox("Name2", entries[i].Name2) </td>
-                        <td> @Html.TextBox("Score", entries[i].Score) </td>
-                        <td> <input type="submit" value="Update" /></td>
+                <div class="grid-item">
+                    @{Enum.GetName(typeof(GameMode), mode);}
+                    <table>
+                        <tr>
+                            <td> Position </td>
+                            <td> Demandeur </td>
+                            <td> Agent </td>
+                            <td> Pointage </td>
+                        </tr>
+                        @{
+                            List<Entry> entries = ViewBag.Entries.GetEntries(mode);
+                            @for (int i = 0; i < entries.Count; i++)
+                            {
+                                <tr>
+                                    @using (Html.BeginForm("update", "leaderboard", FormMethod.Post))
+                                    {
+                                        <td> @(i + 1) </td>
+                                        @Html.Hidden("Position", i + 1, new { id = "updatePos" + i })
+                                        <td> @Html.TextBox("Name1", entries[i].Name1) </td>
+                                        <td> @Html.TextBox("Name2", entries[i].Name2) </td>
+                                        <td> @Html.TextBox("Score", entries[i].Score) </td>
+                                        <td> <input type="submit" value="Update" /></td>
 
-                    }
+                                    }
 
-                    @using (Html.BeginForm("remove", "leaderboard", FormMethod.Post))
-                    {
-                        @Html.Hidden("Position", i + 1, new { id = "removePos" })
-                        <td> <input type="submit" value="Remove" /></td>
-                    }
-                </tr>
+                                    @using (Html.BeginForm("remove", "leaderboard", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("Position", i + 1, new { id = "removePos" })
+                                        <td> <input type="submit" value="Remove" /></td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
             }
         }
-    </table>
-    <hr />
-    <h4>End Game</h4>
-    <input type="submit" onclick="endGame(true)" value="Success" />
-    <input type="submit" onclick="endGame(false)" value="Failure" />
-    <hr />
+
+    </div>
+
+        <div>
+
+            <hr />
+            <h4>End Game</h4>
+            <input type="submit" onclick="endGame(true)" value="Success" />
+            <input type="submit" onclick="endGame(false)" value="Failure" />
+            <hr />
+        </div>
 </body>
 </html>

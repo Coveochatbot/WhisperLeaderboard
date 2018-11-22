@@ -10,6 +10,7 @@ namespace WhisperLeaderboard.Models.Dto.Game
     {
         Easy,
         Medium,
+        Hard,
         Expert
     }
 

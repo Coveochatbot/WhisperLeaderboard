@@ -1,4 +1,5 @@
 ﻿@model WhisperLeaderboard.Models.Leaderboard
+@using WhisperLeaderboard.Models.Dto.Game;
 
 @{
     Layout = null;
@@ -74,36 +75,41 @@
             width: 240px;
         }
 
-        td.score {
-            width: 120px;
-            padding-left: 0px;
-        }
+            td.score {
+                width: 120px;
+                padding-left: 0px;
+            }
     </style>
 </head>
 <body>
     <div align="left">
         <h1>Classement</h1>
     </div>
-    <div class="content" align="left" style="top: 50%;">
-        <div align="center">
-            <h2>Score</h2>
-        </div>
-        <div class="tableContainer" id="mytable" align="center">
-            <table border=1 frame=void rules=rows>
-                @{int i = 1;}
-                @foreach (var entry in Model.GetTopEntries())
-                {
-                    <tr>
-                        <td><span>@i. </span><span>@entry.Name1</span></td>
-                        <td>@entry.Name2</td>
-                        <td class="score">@entry.Score</td>
+    @{foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
+        {
+            <div class="content" align="left" style="top: 50%;">
+                <div align="center">
+                    <h2>Score</h2>
+                </div>
+                <div class="tableContainer" id="mytable" align="center">
+                    <table border=1 frame=void rules=rows>
+                        @{int i = 1;}
+                        @foreach (var entry in Model.GetTopEntries(mode))
+                        {
+                            <tr>
+                                <td><span>@i. </span><span>@entry.Name1</span></td>
+                                <td>@entry.Name2</td>
+                                <td class="score">@entry.Score</td>
 
-                    </tr>
-                    i++;
-                }
-            </table>
-        </div>
-    </div>
+                            </tr>
+                            i++;
+                        }
+                    </table>
+                </div>
+            </div>
+                                }
+                            }
+
     <div class="imageCoveo">
         <img src="~/images/coveo.png" />
     </div>
