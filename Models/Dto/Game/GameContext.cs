@@ -9,7 +9,7 @@ namespace WhisperLeaderboard.Models.Dto.Game
     {
         public GameContext()
         {
-
+            GameStartTime = DateTime.Now;
         }
 
         public void NewGame(StartParameters startParams)

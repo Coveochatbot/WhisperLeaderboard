@@ -1,5 +1,6 @@
 ﻿@model WhisperLeaderboard.Models.Dto.EditDto
 @using WhisperLeaderboard.Models;
+@using WhisperLeaderboard.Models.Dto.Game;
 
 @{
     Layout = null;
@@ -18,7 +19,27 @@
         function newGame() {
             socket.emit('new');
         }
-            
+
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+
+        function endGame(Success) {
+
+            var date = new Date();
+            date.setHours(date.getHours() - 5);
+
+            var params = {}
+            params['Success'] = Success;
+            params['EndTime'] = date.toJSON();
+
+            jQuery.ajax({
+                type: 'post',
+                url: '/game/end',
+                data: JSON.stringify(params),
+                contentType: 'application/json'
+            });
+        }
     </script>
 </head>
 <body>
@@ -64,29 +85,31 @@
             List<Entry> entries = ViewBag.Entries;
             @for (int i = 0; i < entries.Count; i++)
             {
-        <tr>
-            @using (Html.BeginForm("update", "leaderboard", FormMethod.Post))
-            {
-                <td> @(i + 1) </td>
-                @Html.Hidden("Position", i + 1, new { id = "updatePos"+i })
-                <td> @Html.TextBox("Name1", entries[i].Name1) </td>
-                <td> @Html.TextBox("Name2", entries[i].Name2) </td>
-                <td> @Html.TextBox("Score", entries[i].Score) </td>
-                <td> <input type="submit" value="Update" /></td>
+                <tr>
+                    @using (Html.BeginForm("update", "leaderboard", FormMethod.Post))
+                    {
+                        <td> @(i + 1) </td>
+                        @Html.Hidden("Position", i + 1, new { id = "updatePos" + i })
+                        <td> @Html.TextBox("Name1", entries[i].Name1) </td>
+                        <td> @Html.TextBox("Name2", entries[i].Name2) </td>
+                        <td> @Html.TextBox("Score", entries[i].Score) </td>
+                        <td> <input type="submit" value="Update" /></td>
 
-            }
+                    }
 
-            @using (Html.BeginForm("remove", "leaderboard", FormMethod.Post))
-            {
-                @Html.Hidden("Position", i + 1, new { id = "removePos" })
-                <td> <input type="submit" value="Remove" /></td>
-            }
-        </tr>
+                    @using (Html.BeginForm("remove", "leaderboard", FormMethod.Post))
+                    {
+                        @Html.Hidden("Position", i + 1, new { id = "removePos" })
+                        <td> <input type="submit" value="Remove" /></td>
+                    }
+                </tr>
             }
         }
     </table>
     <hr />
-    <input type="submit" onclick="newGame()" value="New Game" />
+    <h4>End Game</h4>
+    <input type="submit" onclick="endGame(true)" value="Success" />
+    <input type="submit" onclick="endGame(false)" value="Failure" />
     <hr />
 </body>
 </html>

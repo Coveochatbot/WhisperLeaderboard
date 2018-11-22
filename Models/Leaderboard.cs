@@ -69,10 +69,10 @@ namespace WhisperLeaderboard.Models
 
         private string TruncateName(string name)
         {
-            if (name.Length <= 14)
+            if (name?.Length <= 14)
                 return name;
 
-            var result = name.Substring(0, 13);
+            var result = name?.Substring(0, 13);
             return result += ".";
         }
     }
