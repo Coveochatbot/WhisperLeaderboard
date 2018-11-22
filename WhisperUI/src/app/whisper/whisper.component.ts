@@ -34,7 +34,7 @@ export class WhisperComponent implements OnInit {
 
     public messageSent(message: string): void {
         const aMessage: Message = JSON.parse(message);
-        this.suggestionService.getSuggestionWithQuery(aMessage.content, aMessage.from)
+        this.suggestionService.getSuggestionWithQuery(aMessage.content, aMessage.from, this.userLogged.id)
             .pipe(first())
             .subscribe((res: Suggestion) => {
                 this.suggestion = res;

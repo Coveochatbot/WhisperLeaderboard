@@ -20,14 +20,14 @@ export class SuggestionService {
     public constructor(private http: HttpClient, private loginService: LoginService) {}
 
     public getSuggestion(chatKey: string): Observable<{} | Suggestion> {
-        const parameters = '?chatkey=' + chatKey.toString() + '&maxDocuments=5&maxQuestions=3';
+        const parameters = '?chatkey=' + chatKey + '&maxDocuments=5&maxQuestions=3';
         return this.http.get<Suggestion>(`${ENDPOINT}/suggestions/${parameters}`)
             .pipe(catchError(this.errorHandler));
     }
 
-    public getSuggestionWithQuery(query: string, user: User): Observable<{} | Suggestion> {
+    public getSuggestionWithQuery(query: string, user: User, chatKey: string): Observable<{} | Suggestion> {
         const data = {
-            chatkey: user.id,
+            chatkey: chatKey,
             Query: query,
             type: user.userType,
             maxDocuments: 5,
