@@ -9,7 +9,7 @@ namespace WhisperLeaderboard.Models.Dto.Game
     {
         public GameContext()
         {
-
+            GameStartTime = DateTime.Now;
         }
 
         public void NewGame(StartParameters startParams)
@@ -59,17 +59,22 @@ namespace WhisperLeaderboard.Models.Dto.Game
 
         public TimeSpan GetBombRemainingTime(DateTime current)
         {
+            return StartBombTime - GetTimeSpend(current);
+        }
+
+        public TimeSpan GetTimeSpend(DateTime current)
+        {
             if (FirstStrikeTime == null)
             {
-                return StartBombTime - (current - GameStartTime);
+                return (current - GameStartTime);
             }
             else if (SecondStrikeTime == null)
             {
-                return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (current - FirstStrikeTime.Value);
+                return (FirstStrikeTime.Value - GameStartTime) - 1.25 * (current - FirstStrikeTime.Value);
             }
             else
             {
-                return StartBombTime - (FirstStrikeTime.Value - GameStartTime) - 1.25 * (SecondStrikeTime.Value - FirstStrikeTime.Value) - 1.5 * (current - SecondStrikeTime.Value);
+                return (FirstStrikeTime.Value - GameStartTime) - 1.25 * (SecondStrikeTime.Value - FirstStrikeTime.Value) - 1.5 * (current - SecondStrikeTime.Value);
             }
         }
 

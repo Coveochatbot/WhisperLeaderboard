@@ -32,7 +32,7 @@ namespace WhisperLeaderboard.Controllers
         [HttpGet("")]
         public IActionResult GetAdmin()
         {
-            this.ViewBag.Entries = _leaderboard.GetEntries();
+            this.ViewBag.Entries = _leaderboard;
             return View();
         }
     }

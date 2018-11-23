@@ -20,5 +20,6 @@ namespace WhisperLeaderboard.Models.Dto.Game
         void Strike(StrikeParameters strikeParams);
         void EndGame();
         TimeSpan GetBombRemainingTime(DateTime current);
+        TimeSpan GetTimeSpend(DateTime current);
     }
 }

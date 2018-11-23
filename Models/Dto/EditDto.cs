@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using WhisperLeaderboard.Models.Dto.Game;
 
 namespace WhisperLeaderboard.Models.Dto
 {
@@ -19,5 +20,9 @@ namespace WhisperLeaderboard.Models.Dto
         [Required]
         [JsonProperty("score")]
         public int Score { get; set; }
+
+        [Required]
+        [JsonProperty("mode")]
+        public GameMode Mode { get; set; }
     }
 }
