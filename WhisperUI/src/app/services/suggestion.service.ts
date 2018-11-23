@@ -1,5 +1,4 @@
 import { User } from './../models/user';
-import { LoginService } from './login.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Suggestion } from '../models/suggestion';
@@ -17,7 +16,7 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class SuggestionService {
-    public constructor(private http: HttpClient, private loginService: LoginService) {}
+    public constructor(private http: HttpClient) {}
 
     public getSuggestion(chatKey: string): Observable<{} | Suggestion> {
         const parameters = '?chatkey=' + chatKey + '&maxDocuments=5&maxQuestions=3';
