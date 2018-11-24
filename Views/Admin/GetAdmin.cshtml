@@ -12,15 +12,6 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Admin leaderboard</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-    <script>
-        var socket = io('https://whisper-megagenial.us-east-1.elasticbeanstalk.com:8080');
-
-        function newGame() {
-            socket.emit('new');
-        }
-
-    </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
 
@@ -125,7 +116,6 @@
         <h4>End Game</h4>
         <input type="submit" onclick="endGame(true)" value="Success" />
         <input type="submit" onclick="endGame(false)" value="Failure" />
-        <input type="submit" onclick="newGame()" value="Failure 2" />
         <hr />
     </div>
 </body>
