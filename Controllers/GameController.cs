@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using WhisperLeaderboard.Models;
 using WhisperLeaderboard.Models.Dto.Game;
+using Quobject.SocketIoClientDotNet.Client;
 
 namespace WhisperLeaderboard.Controllers
 {
@@ -78,6 +82,10 @@ namespace WhisperLeaderboard.Controllers
                 var timeSpend = _gameContext.GetTimeSpend(endParams.EndTime);
                 _leaderboard.InsertEntry(_gameContext.AgentName, _gameContext.DisarmerName, Convert.ToInt32(_gameContext.GetTimeSpend(endParams.EndTime).TotalSeconds), _gameContext.Mode);
             }
+            
+            var url = "https://whisper-megagenial.us-east-1.elasticbeanstalk.com:8080";
+            var socket = IO.Socket(url);
+            socket.Emit("new");
 
             _gameContext.EndGame();
             return this.Ok(_gameContext.GetBombRemainingTime(endParams.EndTime));
