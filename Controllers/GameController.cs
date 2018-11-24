@@ -75,9 +75,8 @@ namespace WhisperLeaderboard.Controllers
                 var timeSpend = _gameContext.GetTimeSpend(endParams.EndTime);
                 _leaderboard.InsertEntry(_gameContext.AgentName, _gameContext.DisarmerName, Convert.ToInt32(_gameContext.GetTimeSpend(endParams.EndTime).TotalSeconds), _gameContext.Mode);
             }
-            
-            var url = "https://whisper-megagenial.us-east-1.elasticbeanstalk.com:8080";
-            var socket = IO.Socket(url);
+
+            var socket = IO.Socket(_configuration["ChatURL"]);
             socket.Emit("new");
 
             _gameContext.EndGame();
