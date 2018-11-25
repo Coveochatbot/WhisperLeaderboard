@@ -8,8 +8,8 @@ namespace WhisperLeaderboard.Models.Dto.Game
 {
     public enum PlayerType
     {
-        Agent,
-        User
+        User = 0,
+        Agent = 1
     }
 
     public class NameParameters
