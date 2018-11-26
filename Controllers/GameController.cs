@@ -24,11 +24,14 @@ namespace WhisperLeaderboard.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var auth = Request.Cookies["Auth"];
-            if (auth != _configuration["Auth"])
-                filterContext.Result = this.Unauthorized();
+            if (filterContext.HttpContext.Request.Method != "GET")
+            {
+                var auth = Request.Cookies["Auth"];
+                if (auth != _configuration["Auth"])
+                    filterContext.Result = this.Unauthorized();
 
-            base.OnActionExecuting(filterContext);
+                base.OnActionExecuting(filterContext);
+            }
         }
 
         [HttpGet("")]
