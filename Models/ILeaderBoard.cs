@@ -6,9 +6,9 @@ namespace WhisperLeaderboard.Models
     public interface ILeaderboard
     {
 
-        void RemoveEntry(int position);
+        void RemoveEntry(GameMode mode, int position);
         
-        Entry GetEntry(int position);
+        Entry GetEntry(GameMode mode, int position);
 
         List<Entry> GetTopEntries(GameMode mode);
 

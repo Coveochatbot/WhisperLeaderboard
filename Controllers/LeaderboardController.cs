@@ -92,7 +92,7 @@ namespace WhisperLeaderboard.Controllers
                 return Unauthorized();
             }
 
-            _leaderboard.RemoveEntry(entry.Position);
+            _leaderboard.RemoveEntry(entry.Mode, entry.Position);
             _hubContext.Clients.All.SendAsync("Update");
             return Redirect(Request.Headers["Referer"]);
         }
@@ -110,7 +110,7 @@ namespace WhisperLeaderboard.Controllers
                 return Unauthorized();
             }
 
-            _leaderboard.RemoveEntry(entry.Position);
+            _leaderboard.RemoveEntry(entry.Mode, entry.Position);
             _leaderboard.InsertEntry(entry.Name1, entry.Name2, entry.Score, entry.Mode);
             _hubContext.Clients.All.SendAsync("Update");
 

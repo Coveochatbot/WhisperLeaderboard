@@ -39,16 +39,16 @@ namespace WhisperLeaderboard.Models
             return _entries.Where(x => x.Mode == mode).OrderBy(x => x.Score == 0).ThenBy(x => x.Score).ToList();
         }
 
-        public void RemoveEntry(int position)
+        public void RemoveEntry(GameMode mode, int position)
         {
-            var entry = GetEntry(position);
+            var entry = GetEntry(mode, position);
             _entries.Remove(entry);
         }
 
-        public Entry GetEntry(int position)
+        public Entry GetEntry(GameMode mode, int position)
         {
             if (_entries.Count >= position && position > 0)
-                return GetAllEntries()[position-1];
+                return GetEntries(mode)[position-1];
 
             throw new KeyNotFoundException($"Position {position} was not found in leaderboard");
         }
