@@ -30,13 +30,13 @@ namespace WhisperLeaderboard.Models
 
         public List<Entry> GetAllEntries()
         {
-            return _entries.OrderByDescending(x => x.Score).ToList();
+            return _entries.OrderBy(x => x.Score == 0).ThenBy(x => x.Score).ToList();
         }
 
 
         public List<Entry> GetEntries(GameMode mode)
         {
-            return _entries.Where(x => x.Mode == mode).OrderByDescending(x => x.Score).ToList();
+            return _entries.Where(x => x.Mode == mode).OrderBy(x => x.Score == 0).ThenBy(x => x.Score).ToList();
         }
 
         public void RemoveEntry(int position)
