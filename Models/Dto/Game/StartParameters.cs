@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json.Converters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WhisperLeaderboard.Models.Dto.Game
 {
@@ -12,6 +9,21 @@ namespace WhisperLeaderboard.Models.Dto.Game
         Medium,
         Hard,
         Expert
+    }
+
+    public static class GameModeToPrettyName
+    {
+        public static string GetPrettyName(GameMode mode)
+        {
+            switch (mode)
+            {
+                case GameMode.Easy: return "Facile";
+                case GameMode.Medium: return "Moyen";
+                case GameMode.Hard: return "Difficile";
+                case GameMode.Expert: return "Expert";
+            }
+            return mode.ToString("g");
+        }
     }
 
     public class StartParameters
