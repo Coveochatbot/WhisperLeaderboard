@@ -110,7 +110,7 @@
                                                     <td scope="row">@i.</td>
                                                     <td>@entry.Name1</td>
                                                     <td>@entry.Name2</td>
-                                                    <td class="score">@entry.Score</td>
+                                                    <td class="score">@($"{entry.Score / 6000}:{((entry.Score / 100) % 60).ToString("D2")}.{(entry.Score % 100).ToString("D2")}")</td>
                                                 </tr>
                                                 i++;
                                             }

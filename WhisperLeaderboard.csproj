@@ -5,6 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <UserSecretsId>fc0d8da7-75f7-476e-a6b1-3102166487d0</UserSecretsId>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
