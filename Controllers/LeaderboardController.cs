@@ -56,17 +56,6 @@ namespace WhisperLeaderboard.Controllers
             return Redirect(Request.Headers["Referer"]);
         }
 
-        [HttpPost("Score")]
-        public IActionResult VerifyScore([FromBody] ScoreDto score)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            return Ok(_leaderboard.IsEligible(score.Score, score.Mode));
-        }
-
         [HttpPost("NewLeaderboard")]
         public IActionResult InitializeNewLeadeboard([FromBody] LeaderboardDto leaderboardDto)
         {

@@ -16,8 +16,6 @@ namespace WhisperLeaderboard.Models
 
         List<Entry> GetEntries(GameMode mode);
 
-        bool IsEligible(int score, GameMode mode);
-
         void Resize(int size);
         
         void InsertEntry(string name1, string name2, int score, GameMode mode);

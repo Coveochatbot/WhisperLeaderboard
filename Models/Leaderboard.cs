@@ -53,11 +53,6 @@ namespace WhisperLeaderboard.Models
             throw new KeyNotFoundException($"Position {position} was not found in leaderboard");
         }
 
-        public bool IsEligible(int score, GameMode mode)
-        {
-            return GetTopEntries(mode).Last().Score < score;
-        }
-
         public void InsertEntry(string name1, string name2, int score, GameMode mode)
         {
             _entries.Add(new Entry(TruncateName(name1), TruncateName(name2), score, mode));

@@ -67,13 +67,11 @@ namespace WhisperLeaderboard.Controllers
         [HttpPost("end")]
         public IActionResult EndGame([FromBody] EndParameters endParams)
         {
-            // TODO before calling end game:
-            // Send the score in endParams to the leaderboard if success is true. We must send the name of the disarmer, the name of the agent and the time it took to disarm the bomb
-            // Then, we must send to the web socket server a reset signal for the UI to prompt for new names.
             if (endParams.Success)
             {
-                var timeSpend = _gameContext.GetTimeSpend(endParams.EndTime);
-                _leaderboard.InsertEntry(_gameContext.AgentName, _gameContext.DisarmerName, Convert.ToInt32(_gameContext.GetTimeSpend(endParams.EndTime).TotalSeconds), _gameContext.Mode);
+                TimeSpan disarmTime = _gameContext.GetTimeSpend(endParams.EndTime);
+                int score = Convert.ToInt32(disarmTime.TotalMilliseconds / 10);
+                _leaderboard.InsertEntry(_gameContext.AgentName, _gameContext.DisarmerName, score, _gameContext.Mode);
             }
 
             var socket = IO.Socket(_configuration["ChatURL"]);
