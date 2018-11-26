@@ -88,6 +88,7 @@
                                     {
                                         <td> @(i + 1) </td>
                                         @Html.Hidden("Position", i + 1, new { id = "updatePos" + i })
+                                        @Html.Hidden("Mode", mode, new { id = "updateMode" + i })
                                         <td> @Html.TextBox("Name1", entries[i].Name1) </td>
                                         <td> @Html.TextBox("Name2", entries[i].Name2) </td>
                                         <td> @Html.TextBox("Score", entries[i].Score) </td>
