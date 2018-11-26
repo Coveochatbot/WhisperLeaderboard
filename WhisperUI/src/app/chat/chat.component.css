@@ -18,6 +18,11 @@
     border-bottom: 1.5px solid #DDD !important;
 }
 
+.searchUser {
+    width:95% !important;
+    padding-left: 4% !important;
+}
+
 #searchBar {
     width:49%;
     padding-left: 1%;

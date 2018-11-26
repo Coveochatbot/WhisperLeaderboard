@@ -6,6 +6,7 @@ import { SuggestionService } from './../services/suggestion.service';
 import { Component, OnInit } from '@angular/core';
 import { Suggestion } from '../models/suggestion';
 import { first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'whisper-main',
@@ -39,5 +40,11 @@ export class WhisperComponent implements OnInit {
             .subscribe((res: Suggestion) => {
                 this.suggestion = res;
             });
+    }
+
+    public calculateClass(): any {
+        if (environment.userType === UserType.AGENT)
+            return {'left-section': true };
+        return {'left-section-user': true };
     }
 }
