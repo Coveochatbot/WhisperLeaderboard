@@ -1,120 +1,142 @@
 ﻿@model WhisperLeaderboard.Models.Leaderboard
 @using WhisperLeaderboard.Models.Dto.Game;
-
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
     <meta name="viewport" content="width=device-width" />
     <title>GetLeaderboard</title>
     <style>
+
         body {
             background-color: #2D4343;
             font-family: 'Raleway', sans-serif;
             overflow: hidden;
         }
-
+        #header {
+            position: relative;
+            top: 10px;
+            left: 25px;
+        }
         h1 {
             color: #FFFFFF;
-            font-size: 120px;
+            font-size: 100px;
             margin-top: 0px;
         }
 
         h2 {
             text-align: right;
-            padding-right: 55px;
+            padding-right: 10px;
             margin: 0px;
             font-size: 36px;
             color: #FFFFFF;
         }
 
-        .content {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            width: fit-content;
-            height: 100%;
+        #wrapper {
+            margin: 0 auto;
+            width: 75%;
+        }
+
+        #wrapper #allTable {
+            width: 100%;
+            table-layout: fixed;
+            font-size: 2em;
+        }
+        #wrapper #allTable .tdTableAlign {
+            width: 50%;
+            padding: 12px;
         }
 
         .tableContainer {
             background-color: #FFFFFF;
             height: 350px;
-            width: 720px;
             border-radius: 7px;
         }
+
+        .tableContainer td {
+            padding: 14px !important;
+        }
+
+            .score {
+                text-align: right;
+                font-weight: bold;
+            }
 
         .imageWHISP {
             position: absolute;
             bottom: 0;
             right: 40px;
-            transform: scale(1.25);
+            transform: scale(0.7);
         }
 
         .imageCoveo {
             position: absolute;
             bottom: 25px;
             left: 25px;
+            transform: scale(0.5);
         }
-
-        table {
-            width: inherit;
-            height: inherit;
-        }
-
-        td {
-            font-size: 30px;
-            padding-left: 30px;
-            width: 240px;
-        }
-
-            td.score {
-                width: 120px;
-                padding-left: 0px;
-            }
     </style>
 </head>
 <body>
-    <div align="left">
+    <div id="header" align="left">
         <h1>Classement</h1>
     </div>
-    @{foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
-        {
-            <div class="content" align="left" style="top: 50%;">
-                <div align="center">
-                    <h2>Score</h2>
-                </div>
-                <div class="tableContainer" id="mytable" align="center">
-                    <table border=1 frame=void rules=rows>
-                        @{int i = 1;}
-                        @foreach (var entry in Model.GetTopEntries(mode))
+    <div id="wrapper">
+        <table id="allTable">
+            <tbody>
+                @{int j = 0;}
+                @{foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
+                    {
+                        if (j % 2 == 0)
                         {
-                            <tr>
-                                <td><span>@i. </span><span>@entry.Name1</span></td>
-                                <td>@entry.Name2</td>
-                                <td class="score">@entry.Score</td>
-
-                            </tr>
-                            i++;
-                        }
-                    </table>
-                </div>
-            </div>
-                                }
+                            @: <tr>
                             }
 
-    <div class="imageCoveo">
-        <img src="~/images/coveo.png" />
+                            <td class="tdTableAlign">
+                                <div class="content">
+                                    <div align="center">
+                                        <h2>Temps</h2>
+                                    </div>
+                                    <div class="tableContainer" id="mytable">
+                                        <table class="table">
+                                            @{int i = 1;}
+                                            @foreach (var entry in Model.GetTopEntries(mode))
+                                            {
+                                                <tr>
+                                                    <td scope="row">@i.</td>
+                                                    <td>@entry.Name1</td>
+                                                    <td>@entry.Name2</td>
+                                                    <td class="score">@entry.Score</td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+
+                            if (j % 2 == 5)
+                            {
+                            @: </tr>
+                        }
+
+                        j++;
+                    }
+                }
+            </tbody>
+        </table>
     </div>
-    <div class="imageWHISP">
-        <img src="~/images/WHISPP.png" />
+    <div id="footer">
+        <div class="imageCoveo">
+            <img src="~/images/coveo.png" />
+        </div>
+        <div class="imageWHISP">
+            <img src="~/images/WHISPP.png" />
+        </div>
     </div>
 </body>
 </html>

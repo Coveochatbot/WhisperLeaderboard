@@ -61,6 +61,7 @@ build/nuget/
 *.vspx
 
 #others#
+node_module/*
 secret.json
 /WhisperUI/dist/*
 

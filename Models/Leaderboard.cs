@@ -14,11 +14,13 @@ namespace WhisperLeaderboard.Models
         public Leaderboard()
         {
             Size = 5;
+            this.FillLeaderboard(_entries, Size);
         }
 
         public Leaderboard(List<Entry> entries, int size)
         {
-            Initialize(entries, size);
+           this.Initialize(entries, size);
+            this.FillLeaderboard(entries, size);
         }
 
         public List<Entry> GetTopEntries(GameMode mode)
@@ -28,13 +30,13 @@ namespace WhisperLeaderboard.Models
 
         public List<Entry> GetAllEntries()
         {
-            return _entries.OrderBy(x => x.Score).ToList();
+            return _entries.OrderBy(x => x.Score == 0).ThenBy(x => x.Score).ToList();
         }
 
 
         public List<Entry> GetEntries(GameMode mode)
         {
-            return _entries.Where(x => x.Mode == mode).OrderBy(x => x.Score).ToList();
+            return _entries.Where(x => x.Mode == mode).OrderBy(x => x.Score == 0).ThenBy(x => x.Score).ToList();
         }
 
         public void RemoveEntry(int position)
@@ -81,6 +83,20 @@ namespace WhisperLeaderboard.Models
 
             var result = name?.Substring(0, 13);
             return result += ".";
+        }
+
+        private void FillLeaderboard(ICollection<Entry> entries, int size)
+        {
+            foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
+            {
+                var j = entries.Count;
+                var i = j;
+                while (i < size + j)
+                {
+                    entries.Add(new Entry("", "", 0, mode));
+                    ++i;
+                }
+            }  
         }
     }
 }
