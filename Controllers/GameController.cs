@@ -22,31 +22,22 @@ namespace WhisperLeaderboard.Controllers
             _leaderboard = leaderboard;
         }
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (filterContext.HttpContext.Request.Method != "GET")
-            {
-                var auth = Request.Cookies["Auth"];
-                if (auth != _configuration["Auth"])
-                    filterContext.Result = this.Unauthorized();
-
-                base.OnActionExecuting(filterContext);
-            }
-        }
-
         [HttpGet("")]
+        [CookieRequired]
         public IActionResult Get()
         {
             return this.Ok();
         }
 
         [HttpGet("remaining")]
+        [CookieRequired]
         public IActionResult GetTimeBeforeExplosion()
         {
             return this.Ok(_gameContext.GetBombRemainingTime(DateTime.Now));
         }
 
         [HttpPost("start")]
+        [CookieRequired]
         public IActionResult StartGame([FromBody] StartParameters startParams)
         {
             _gameContext.NewGame(startParams);
@@ -61,6 +52,7 @@ namespace WhisperLeaderboard.Controllers
         }
 
         [HttpPost("strike")]
+        [CookieRequired]
         public IActionResult Strike([FromBody] StrikeParameters strikeParams)
         {
             _gameContext.Strike(strikeParams);
@@ -68,6 +60,7 @@ namespace WhisperLeaderboard.Controllers
         }
 
         [HttpPost("end")]
+        [CookieRequired]
         public IActionResult EndGame([FromBody] EndParameters endParams)
         {
             // TODO before calling end game:
@@ -84,6 +77,20 @@ namespace WhisperLeaderboard.Controllers
 
             _gameContext.EndGame();
             return this.Ok(_gameContext.GetBombRemainingTime(endParams.EndTime));
+        }
+
+        private class CookieRequired : ActionFilterAttribute
+        {
+            public override void OnActionExecuting(ActionExecutingContext filterContext)
+            {
+                GameController gc = filterContext.Controller as GameController;
+
+                var auth = filterContext.HttpContext.Request.Cookies["Auth"];
+                if (auth != _configuration["Auth"])
+                    filterContext.Result = gc.Unauthorized();
+
+                base.OnActionExecuting(filterContext);
+            }
         }
     }
 }
