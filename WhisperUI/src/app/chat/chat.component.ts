@@ -1,8 +1,10 @@
+import { environment } from './../../environments/environment';
 import { LoginService } from './../services/login.service';
 import { Message } from './../models/message';
 import { Component, OnInit,  AfterViewChecked, Output, EventEmitter, Input } from '@angular/core';
 import { SocketService } from './../services/socket.service';
 import { User } from '../models/user';
+import { UserType } from '../models/usertype';
 
 @Component({
     selector: 'whisper-chat',
@@ -58,6 +60,12 @@ export class ChatComponent implements OnInit, AfterViewChecked  {
         if (user.name === this._userConnected.name) 
             return { 'background-color' : '#c9ffff' };
         return { 'background-color' : '#FFF' };
+    }
+
+    public calculateClass(): any {
+        if (environment.userType === UserType.USER)
+            return {'searchUser': true };
+        return {};
     }
 }
 
