@@ -5,9 +5,13 @@
     overflow: auto;
 }
 
-#left-section {
+.left-section {
     width: 50%;
     float:left;
+}
+
+.left-section-user {
+    width: 100%;
 }
 
 #right-section {

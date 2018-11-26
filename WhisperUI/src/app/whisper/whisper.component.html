@@ -1,5 +1,5 @@
 <div id="wrapper">
-    <div id="left-section">
+    <div  [ngClass]="calculateClass()" >
         <whisper-chat [messageContent]="chatInput" (messageSentEvent)="messageSent($event)"></whisper-chat>
     </div>
     <div id="right-section" *ngIf="userLogged.userType == 1">
