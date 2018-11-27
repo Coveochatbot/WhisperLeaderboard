@@ -35,7 +35,7 @@
 }
 
 #chat-wrapper {
-    padding:4%;
+    padding:55px 4% 40px 4%;
     overflow-y: scroll;
     height: 95vh;
 }
