@@ -40,7 +40,11 @@ namespace WhisperLeaderboard.Controllers
         [HttpGet("remaining")]
         public IActionResult GetTimeBeforeExplosion()
         {
-            var time = Convert.ToInt32(_gameContext.GetBombRemainingTime(DateTime.Now).TotalMilliseconds / 10);
+            var timeUtc = DateTime.UtcNow;
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
+
+            var time = Convert.ToInt32(_gameContext.GetBombRemainingTime(easternTime).TotalMilliseconds / 10);
             var timeToDisplay =$"{ time / 6000}:{ ((time / 100) % 60).ToString("D2")}";
             return this.Ok(timeToDisplay);
         }
