@@ -45,6 +45,8 @@ namespace WhisperLeaderboard.Controllers
             DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
 
             var time = Convert.ToInt32(_gameContext.GetBombRemainingTime(easternTime).TotalMilliseconds / 10);
+            time = time < 0 ? 0 : time;
+
             var timeToDisplay =$"{ time / 6000}:{ ((time / 100) % 60).ToString("D2")}";
             return this.Ok(timeToDisplay);
         }
