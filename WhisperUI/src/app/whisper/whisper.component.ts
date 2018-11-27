@@ -33,10 +33,7 @@ export class WhisperComponent implements OnInit {
             switchMap(() => this.suggestionService.getTimer())
         )
         .subscribe(res => {
-            if (res < 0)
-                this.time = 0;
-            else
-                this.time = res;
+            this.time = res;
         });
     }
 
