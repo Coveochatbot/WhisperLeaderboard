@@ -41,7 +41,7 @@ namespace WhisperLeaderboard.Controllers
         public IActionResult GetTimeBeforeExplosion()
         {
             var timeUtc = DateTime.UtcNow;
-            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
             DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, easternZone);
 
             var time = Convert.ToInt32(_gameContext.GetBombRemainingTime(easternTime).TotalMilliseconds / 10);
