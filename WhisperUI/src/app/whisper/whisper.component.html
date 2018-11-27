@@ -1,5 +1,8 @@
 <div id="wrapper">
     <div  [ngClass]="calculateClass()" >
+        <div class="ui teal compact message" *ngIf="userLogged.userType == 1 && time">
+            Temps restant: {{ time }}
+        </div>
         <whisper-chat [messageContent]="chatInput" (messageSentEvent)="messageSent($event)"></whisper-chat>
     </div>
     <div id="right-section" *ngIf="userLogged.userType == 1">

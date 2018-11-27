@@ -30,7 +30,8 @@ export class ChatComponent implements OnInit, AfterViewChecked  {
             .subscribe((message: Message) => {
                 this.messages.push(message);
                 this.loginService.saveMessages(message); 
-                this.messageSentEvent.emit(JSON.stringify(message));
+                if (message.from.userType === UserType.USER)
+                    this.messageSentEvent.emit(JSON.stringify(message));
                 this._isNewMessage = true;
             });
     }

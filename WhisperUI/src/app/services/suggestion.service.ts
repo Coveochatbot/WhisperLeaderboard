@@ -2,14 +2,14 @@ import { User } from './../models/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Suggestion } from '../models/suggestion';
-import { throwError,  Observable } from 'rxjs';
+import { throwError,  Observable  } from 'rxjs';
 import {  catchError } from 'rxjs/operators';
 
 const ENDPOINT: string = 'https://whisper-megagenial.us-east-1.elasticbeanstalk.com/whisper';
 
 const httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json'
+      'Content-Type':  'application/json',
     })
 };
 @Injectable({
@@ -51,6 +51,13 @@ export class SuggestionService {
 
     public cancelQuestion(facetId: string): Observable<{}> {
         return this.http.delete(`${ENDPOINT}/facets/${facetId || ''}`, httpOptions)
+            .pipe(catchError(this.errorHandler));
+    }
+
+    public getTimer(): Observable<string | {}> {
+        // lol aNgUlAr cEsT bOn
+        return this.http.get<string>('https://whisper-megagenial.us-east-1.elasticbeanstalk.com:8081/game/remaining', 
+            { responseType: 'text' as 'json' })
             .pipe(catchError(this.errorHandler));
     }
 }
