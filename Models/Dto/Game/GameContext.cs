@@ -70,11 +70,11 @@ namespace WhisperLeaderboard.Models.Dto.Game
             }
             else if (SecondStrikeTime == null)
             {
-                return (FirstStrikeTime.Value - GameStartTime) - 1.25 * (current - FirstStrikeTime.Value);
+                return (FirstStrikeTime.Value - GameStartTime) + 1.25 * (current - FirstStrikeTime.Value);
             }
             else
             {
-                return (FirstStrikeTime.Value - GameStartTime) - 1.25 * (SecondStrikeTime.Value - FirstStrikeTime.Value) - 1.5 * (current - SecondStrikeTime.Value);
+                return (FirstStrikeTime.Value - GameStartTime) + 1.25 * (SecondStrikeTime.Value - FirstStrikeTime.Value) + 1.5 * (current - SecondStrikeTime.Value);
             }
         }
 
